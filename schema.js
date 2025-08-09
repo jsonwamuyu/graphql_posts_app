@@ -1,35 +1,39 @@
-// Types int, String, Float, Boolean ID
-
+// Define typeDefs - how data looks likes and their entry points
 export const typeDefs = `#graphql
+    // Define structure of the data - how data looks like
     type Post{
-        id:ID!
+        id: ID!
         title: String!
         content: String!
-        author:String!
     }
-    type Game{
-        id: ID!
-        title: String!
-        platform:[String!]!
+    type Comment{
+        id:ID!
+        content:String!
+    }
+    type Author{
+        id:ID!
+        name: String!
+        verified: Boolean
     }
 
-    type Author{
-        id: ID!
-        fullname: String!
-    }
-    type Reviews{
-        id: ID!
-    }
+    // Define entry points for these typeDefs
     type Query{
         posts:[Post]
-        games:[Game]
-        authors: [Author]
-        post(id:ID):Post
+        post(id:ID!)
+        comments: [Comment]
+        comment:Comment
+        authors:[Authors]
+        author:Author
     }
 `;
 
 export const resolvers = {
   Query: {
-    posts: () => post,
+    posts: () => posts,
+    post: (_, { id }) => posts.find((post) => post.id === id),
+    comments: () => comments,
+    comment: (_, { id }) => comments.find((post) => post.id === id),
+    authors: () => authors,
+    author: (_, { id }) => authors.find((author) => author.id === id),
   },
 };

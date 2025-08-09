@@ -13,4 +13,4 @@ const { url } = await startStandaloneServer(server, {
     port: 4000,
   },
 });
-console.log("Server running at ", 4000);
+console.log(`Server running at ${url}`);
